@@ -1,6 +1,13 @@
 function attempt(available, allowed, preferred) {
     let common = available.filter(value => allowed.includes(value) || allowed.includes('any'));
     let result = [];
+
+    function addElement(element) {
+        if (!result.includes(element)) {
+            result.push(element)
+        }
+    }
+
     if (preferred.includes('any')) {
         return common;
     }
@@ -14,7 +21,7 @@ function attempt(available, allowed, preferred) {
                 addElement(common[0]);
             } else {
                 let mid = Math.floor(common.length / 2);
-                while(mid > 0) {
+                while (mid > 0) {
                     if (common[mid] > preferredItem) {
                         if (common[mid - 1] < preferredItem) {
                             addElement(common[mid]);
@@ -33,18 +40,8 @@ function attempt(available, allowed, preferred) {
                         }
                     }
                 }
-            }          
-        } 
-    }
-    return result;
-
-    function addElement(element) {
-        if (!result.includes(element)) {
-            result.push(element)
+            }
         }
     }
+    return result;
 }
-
-
-
-console.log(attempt([240, 360, 720], [360, 720, 1080], [220, 230, 720]))
